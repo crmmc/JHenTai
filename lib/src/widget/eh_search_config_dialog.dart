@@ -98,7 +98,7 @@ class _EHSearchConfigDialogState extends State<EHSearchConfigDialog> {
       controller: _bodyScrollController,
       child: ListView(
         controller: _bodyScrollController,
-        scrollCacheExtent: ScrollCacheExtent.pixels(3000),
+        scrollCacheExtent: const ScrollCacheExtent.pixels(3000),
         padding: const EdgeInsets.symmetric(horizontal: 10),
         children: [
           if (widget.type != EHSearchConfigDialogType.filter) _buildSearchConfigName(),
