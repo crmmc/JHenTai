@@ -12,7 +12,9 @@ import 'package:jhentai/src/model/gallery_page.dart';
 import 'package:jhentai/src/model/search_config.dart';
 import 'package:jhentai/src/service/local_config_service.dart';
 import 'package:jhentai/src/setting/preference_setting.dart';
+import 'package:jhentai/src/setting/style_setting.dart';
 import 'package:jhentai/src/widget/eh_search_config_dialog.dart';
+import 'package:jhentai/src/widget/eh_search_filter_sheet.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../exception/eh_site_exception.dart';
@@ -362,9 +364,9 @@ abstract class BasePageLogic extends GetxController with Scroll2TopLogicMixin {
   Future<void> handleTapFilterButton([EHSearchConfigDialogType searchConfigDialogType = EHSearchConfigDialogType.filter]) async {
     await state.searchConfigInitCompleter.future;
 
-    Map<String, dynamic>? result = await Get.dialog(
-      EHSearchConfigDialog(searchConfig: state.searchConfig, type: searchConfigDialogType),
-    );
+    Map<String, dynamic>? result = styleSetting.isInMobileLayout
+        ? await EHSearchFilterSheet.show(searchConfig: state.searchConfig)
+        : await Get.dialog(EHSearchConfigDialog(searchConfig: state.searchConfig, type: searchConfigDialogType));
 
     if (result == null) {
       return;

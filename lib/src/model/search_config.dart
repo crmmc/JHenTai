@@ -125,6 +125,23 @@ class SearchConfig {
     includeMisc = false;
   }
 
+  /// reset all filter fields to default, [searchType] is reserved
+  void reset() {
+    enableAllCategories();
+    keyword = null;
+    tags = null;
+    language = null;
+    onlySearchExpungedGalleries = false;
+    onlyShowGalleriesWithTorrents = false;
+    pageAtLeast = null;
+    pageAtMost = null;
+    minimumRating = 1;
+    disableFilterForLanguage = false;
+    disableFilterForUploader = false;
+    disableFilterForTags = false;
+    searchFavoriteCategoryIndex = null;
+  }
+
   /// search path
   String toPath() {
     switch (searchType) {
