@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:jhentai/src/pages/base/base_page.dart';
 import 'package:jhentai/src/pages/home_tab/home_gallery_tab_logic.dart';
 import 'package:jhentai/src/pages/home_tab/home_gallery_tab_state.dart';

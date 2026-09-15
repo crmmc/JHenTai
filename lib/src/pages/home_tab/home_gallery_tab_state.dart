@@ -1,5 +1,5 @@
-import '../../../routes/routes.dart';
-import '../../base/base_page_state.dart';
+import '../../routes/routes.dart';
+import '../base/base_page_state.dart';
 
 class HomeGalleryTabState extends BasePageState {
   @override
