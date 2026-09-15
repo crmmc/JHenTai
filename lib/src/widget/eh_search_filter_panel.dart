@@ -60,6 +60,25 @@ class EHSearchFilterPanelState extends State<EHSearchFilterPanel> {
   bool _advancedExpanded = false;
 
   @override
+  void initState() {
+    super.initState();
+    // Expand the advanced section when the loaded config already has advanced fields set,
+    // so users editing an existing tab/filter see their previous choices instead of a closed panel.
+    _advancedExpanded = _hasAdvancedConfig(widget.searchConfig);
+  }
+
+  bool _hasAdvancedConfig(SearchConfig config) {
+    return config.onlySearchExpungedGalleries
+        || config.onlyShowGalleriesWithTorrents
+        || config.pageAtLeast != null
+        || config.pageAtMost != null
+        || config.minimumRating > 1
+        || config.disableFilterForLanguage
+        || config.disableFilterForUploader
+        || config.disableFilterForTags;
+  }
+
+  @override
   void dispose() {
     debouncing.close();
     overlayEntry?.remove();
