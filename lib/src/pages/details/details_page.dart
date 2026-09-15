@@ -234,14 +234,16 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
   Widget buildDetail(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        height: UIConfig.detailsPageHeaderHeight,
+        constraints: const BoxConstraints(minHeight: UIConfig.detailsPageHeaderHeight),
         margin: const EdgeInsets.only(top: 12, left: UIConfig.detailPagePadding, right: UIConfig.detailPagePadding),
-        child: Row(
-          children: [
-            _buildCover(context),
-            const SizedBox(width: 10),
-            Expanded(child: _buildInfo(context)),
-          ],
+        child: IntrinsicHeight(
+          child: Row(
+            children: [
+              _buildCover(context),
+              const SizedBox(width: 10),
+              Expanded(child: _buildInfo(context)),
+            ],
+          ),
         ),
       ),
     );
@@ -877,12 +879,12 @@ class DetailsPage extends StatelessWidget with Scroll2TopPageMixin {
             padding: EdgeInsets.zero,
             children: [
               _buildReadButton(context),
+              _buildRatingButton(context),
               _buildDownloadButton(context),
               _buildFavoriteButton(context),
-              _buildRatingButton(context),
+              _buildSimilarButton(context),
               _buildArchiveButton(context),
               _buildHHButton(context),
-              _buildSimilarButton(context),
               _buildTorrentButton(context),
               // _buildStatisticButton(context),
             ],
