@@ -12,7 +12,6 @@ class HomeTabPageLogic extends GetxController {
   final String tabBarId = 'tabBarId';
   final String pageViewId = 'pageViewId';
 
-  @override
   final HomeTabPageState state = HomeTabPageState();
 
   List<TabBarConfig> get visibleTabs => homeTabBarService.visibleTabs;
