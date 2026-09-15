@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jhentai/src/extension/list_extension.dart';
-import 'package:jhentai/src/pages/gallery/dashboard/dashboard_page_logic.dart';
-import 'package:jhentai/src/pages/gallery/dashboard/simple/simple_dashboard_page_logic.dart';
+import 'package:jhentai/src/pages/home_tab/home_tab_page.dart';
+import 'package:jhentai/src/pages/home_tab/home_tab_page_logic.dart';
 import 'package:jhentai/src/pages/search/mobile_v2/search_page_mobile_v2.dart';
 
 import '../../../mixin/double_tap_to_refresh_state_mixin.dart';
@@ -12,8 +12,6 @@ import '../../../setting/preference_setting.dart';
 import '../../download/download_base_page.dart';
 import '../../favorite/favorite_page.dart';
 import '../../favorite/favorite_page_logic.dart';
-import '../../gallery/dashboard/dashboard_page.dart';
-import '../../gallery/dashboard/simple/simple_dashboard_page.dart';
 import '../../history/history_page.dart';
 import '../../history/history_page_logic.dart';
 import '../../popular/popular_page.dart';
@@ -44,10 +42,10 @@ class MobileLayoutPageV2State with DoubleTapToRefreshStateMixin {
         routeName: Routes.dashboard,
         selectedIcon: const Icon(Icons.home),
         unselectedIcon: const Icon(Icons.home_outlined),
-        page: () => preferenceSetting.simpleDashboardMode.isTrue ? const SimpleDashboardPage() : const DashboardPage(),
-        scrollController: () => preferenceSetting.simpleDashboardMode.isTrue
-            ? Get.find<SimpleDashboardPageLogic>().scroll2TopState.scrollController
-            : Get.find<DashboardPageLogic>().scroll2TopState.scrollController,
+        page: () => const HomeTabPage(),
+        scrollController: () => Get.isRegistered<HomeTabPageLogic>()
+            ? Get.find<HomeTabPageLogic>().currentTabLogic?.scroll2TopState.scrollController
+            : null,
         shouldRender: false,
       ),
       TabBarIcon(

@@ -9,6 +9,8 @@ import 'package:jhentai/src/pages/gallery/dashboard/dashboard_page.dart';
 import 'package:jhentai/src/pages/gallery/simple/gallery_page.dart';
 import 'package:jhentai/src/pages/history/history_page.dart';
 import 'package:jhentai/src/pages/home_page.dart';
+import 'package:jhentai/src/pages/home_tab/home_tab_edit_page.dart';
+import 'package:jhentai/src/pages/home_tab/home_tab_manage_page.dart';
 import 'package:jhentai/src/pages/layout/desktop/desktop_home_page.dart';
 import 'package:jhentai/src/pages/lock_page.dart';
 import 'package:jhentai/src/pages/popular/popular_page.dart';
@@ -89,6 +91,8 @@ class Routes {
   static const String thumbnails = "/thumbnails";
   static const String webview = "/webview";
   static const String quickSearch = "/qucik_search";
+  static const String homeTabManagement = "/home_tab_management";
+  static const String homeTabEdit = "/home_tab_edit";
   static const String imagePage = "/image_page";
 
   static const String settingPrefix = "/setting_";
@@ -269,6 +273,18 @@ class Routes {
     EHPage(
       name: quickSearch,
       page: () => QuickSearchPage(automaticallyImplyLeading: true).withEscOrFifthButton2BackRightRoute(),
+      transition: defaultTransition,
+      offAllBefore: false,
+    ),
+    EHPage(
+      name: homeTabManagement,
+      page: () => const HomeTabManagePage().withEscOrFifthButton2BackRightRoute(),
+      transition: defaultTransition,
+      offAllBefore: false,
+    ),
+    EHPage(
+      name: homeTabEdit,
+      page: () => const HomeTabEditPage().withEscOrFifthButton2BackRightRoute(),
       transition: defaultTransition,
       offAllBefore: false,
     ),

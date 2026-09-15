@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jhentai/src/extension/widget_extension.dart';
 import 'package:jhentai/src/model/search_config.dart';
+import 'package:jhentai/src/service/home_tab_bar_service.dart';
 import 'package:jhentai/src/service/quick_search_service.dart';
 import 'package:jhentai/src/utils/search_util.dart';
 
@@ -38,10 +39,20 @@ class QuickSearchPage extends StatelessWidget {
                 ListTile(
                   dense: true,
                   title: Text(entries[index].key, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.settings),
-                    onPressed: () => quickSearchService.handleUpdateQuickSearch(entries[index]),
-                  ).marginOnly(right: GetPlatform.isDesktop ? 24 : 0),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.home_outlined),
+                        tooltip: 'saveAsHomeTab'.tr,
+                        onPressed: () => homeTabBarService.addTab(entries[index].key, entries[index].value.copyWith()),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.settings),
+                        onPressed: () => quickSearchService.handleUpdateQuickSearch(entries[index]),
+                      ).marginOnly(right: GetPlatform.isDesktop ? 24 : 0),
+                    ],
+                  ),
                   onTap: () => newSearch(rewriteSearchConfig: entries[index].value, forceNewRoute: true),
                 ),
                 const Divider(thickness: 0.7, height: 2),

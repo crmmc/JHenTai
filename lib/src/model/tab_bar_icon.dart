@@ -18,7 +18,7 @@ class TabBarIcon {
   final Icon selectedIcon;
   final Icon unselectedIcon;
   final ValueGetter<Widget> page;
-  final ValueGetter<ScrollController>? scrollController;
+  final ValueGetter<ScrollController?>? scrollController;
   bool shouldRender;
   bool enterNewRoute;
 

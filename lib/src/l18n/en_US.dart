@@ -936,6 +936,15 @@ Example 2: Block comments with a score not exceeding 10————Comment Score
       'permissionPermanentlyDeniedHint': 'Saving to album requires permission. Please go to system settings and grant full access to this app',
       'goToSetting': 'Go to settings',
       'other': 'Other',
+
+      /// home tab page
+      'manageHomeTabs': 'Manage Home Tabs',
+      'addHomeTab': 'Add Tab',
+      'editHomeTab': 'Edit Tab',
+      'tabName': 'Tab Name',
+      'tabHidden': 'Hidden',
+      'saveAsHomeTab': 'Save as Home Tab',
+      'cantRemoveLastVisibleTab': 'The last visible tab cannot be deleted or hidden',
     };
   }
 }

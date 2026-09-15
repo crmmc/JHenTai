@@ -941,6 +941,15 @@ favnote：匹配收藏备注
       'permissionPermanentlyDeniedHint': '保存到相册需要相应权限。请在系统设置中为应用开启完全访问权限',
       'goToSetting': '去设置',
       'other': '其他',
+
+      /// home tab page
+      'manageHomeTabs': '管理首页标签',
+      'addHomeTab': '新增标签',
+      'editHomeTab': '编辑标签',
+      'tabName': '标签名称',
+      'tabHidden': '已隐藏',
+      'saveAsHomeTab': '保存为首页标签',
+      'cantRemoveLastVisibleTab': '不能删除或隐藏最后一个可见标签',
     };
   }
 }

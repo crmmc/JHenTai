@@ -38,6 +38,7 @@ enum ConfigEnum {
   dismissVersion('dismissVersion'),
   readIndexRecord('readIndexRecord'),
   quickSearch('quickSearch'),
+  homeTabBar('homeTabBar'),
   oldGalleryHistory('history'),
   searchHistory('searchHistory'),
   myTagsSetting('MyTagsSetting'),
