@@ -57,10 +57,10 @@ class HomeTabBarService extends GetxController with JHLifeCircleBeanWithConfigSt
   @override
   void doAfterBeanReady() {}
 
-  Future<void> addTab(String name, SearchConfig searchConfig) async {
+  Future<void> addTab(String name, SearchConfig searchConfig, {bool advancedExpanded = false}) async {
     log.info('Add home tab: $name');
 
-    tabBarConfigs.add(TabBarConfig(id: newUUID(), name: name, searchConfig: searchConfig));
+    tabBarConfigs.add(TabBarConfig(id: newUUID(), name: name, searchConfig: searchConfig, advancedExpanded: advancedExpanded));
     await saveBeanConfig();
     updateSafely();
 
@@ -68,11 +68,14 @@ class HomeTabBarService extends GetxController with JHLifeCircleBeanWithConfigSt
   }
 
   /// [searchConfig] must be a new object, so pages can detect the change by identity
-  Future<void> updateTab(TabBarConfig tab, {required String name, required SearchConfig searchConfig}) async {
+  Future<void> updateTab(TabBarConfig tab, {required String name, required SearchConfig searchConfig, bool? advancedExpanded}) async {
     log.info('Update home tab: ${tab.name} => $name');
 
     tab.name = name;
     tab.searchConfig = searchConfig;
+    if (advancedExpanded != null) {
+      tab.advancedExpanded = advancedExpanded;
+    }
     await saveBeanConfig();
     updateSafely();
 
