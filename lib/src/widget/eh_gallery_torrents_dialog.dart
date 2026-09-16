@@ -1,4 +1,4 @@
-import 'package:clipboard/clipboard.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,7 +11,6 @@ import 'package:jhentai/src/network/eh_request.dart';
 import 'package:jhentai/src/utils/eh_spider_parser.dart';
 import 'package:jhentai/src/service/log.dart';
 import 'package:jhentai/src/widget/loading_state_indicator.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../exception/eh_site_exception.dart';
 import '../utils/snack_util.dart';
@@ -125,9 +124,8 @@ class _TorrentList extends StatelessWidget {
     return ListTile(
       dense: true,
       title: InkWell(
-        onTap: () => launchUrlString(
+        onTap: () => Share.share(
           torrent.torrentUrl.replaceFirst('https://exhentai.org/torrent', 'https://ehtracker.org/get'),
-          mode: LaunchMode.externalApplication,
         ),
         child: Text(torrent.title, style: TextStyle(fontSize: UIConfig.torrentDialogTitleSize, color: UIConfig.resumePauseButtonColor(context))),
       ),
@@ -145,7 +143,7 @@ class _TorrentList extends StatelessWidget {
       trailing: IconButton(
         icon: Icon(Icons.attach_file_outlined, size: 16, color: UIConfig.resumePauseButtonColor(context)),
         padding: EdgeInsets.zero,
-        onPressed: () => FlutterClipboard.copy(torrent.magnetUrl).then((_) => toast('hasCopiedToClipboard'.tr)),
+        onPressed: () => Share.share(torrent.magnetUrl),
       ),
     );
   }
