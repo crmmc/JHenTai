@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:jhentai/src/service/log.dart';
 import 'package:jhentai/src/widget/loading_state_indicator.dart';
 
 import '../exception/eh_site_exception.dart';
+import '../utils/screen_size_util.dart';
 import '../utils/snack_util.dart';
 import '../utils/toast_util.dart';
 
@@ -120,11 +122,23 @@ class _TorrentList extends StatelessWidget {
     );
   }
 
+  /// Share on mobile (system share sheet, lets user pick a downloader); copy to clipboard on desktop.
+  void _shareOrCopy(String text) {
+    if (GetPlatform.isDesktop) {
+      FlutterClipboard.copy(text).then((_) => toast('hasCopiedToClipboard'.tr));
+      return;
+    }
+    Share.share(
+      text,
+      sharePositionOrigin: Rect.fromLTWH(0, 0, fullScreenWidth, screenHeight * 2 / 3),
+    );
+  }
+
   Widget _buildListTile(GalleryTorrent torrent, BuildContext context) {
     return ListTile(
       dense: true,
       title: InkWell(
-        onTap: () => Share.share(
+        onTap: () => _shareOrCopy(
           torrent.torrentUrl.replaceFirst('https://exhentai.org/torrent', 'https://ehtracker.org/get'),
         ),
         child: Text(torrent.title, style: TextStyle(fontSize: UIConfig.torrentDialogTitleSize, color: UIConfig.resumePauseButtonColor(context))),
@@ -143,7 +157,7 @@ class _TorrentList extends StatelessWidget {
       trailing: IconButton(
         icon: Icon(Icons.attach_file_outlined, size: 16, color: UIConfig.resumePauseButtonColor(context)),
         padding: EdgeInsets.zero,
-        onPressed: () => Share.share(torrent.magnetUrl),
+        onPressed: () => _shareOrCopy(torrent.magnetUrl),
       ),
     );
   }

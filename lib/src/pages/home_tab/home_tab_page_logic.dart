@@ -46,7 +46,7 @@ class HomeTabPageLogic extends GetxController {
   void onClose() {
     homeTabBarService.removeListener(_onTabBarChanged);
     for (HomeGalleryTabLogic logic in state.tabLogics.values) {
-      logic.onClose();
+      logic.onDelete();
     }
     state.pageController.dispose();
     super.onClose();
@@ -91,7 +91,7 @@ class HomeTabPageLogic extends GetxController {
       return dead;
     });
     for (HomeGalleryTabLogic logic in removedLogics.values) {
-      Get.engine.addPostFrameCallback((_) => logic.onClose());
+      Get.engine.addPostFrameCallback((_) => logic.onDelete());
     }
 
     if (!listEquals(ids, _lastVisibleIds)) {
