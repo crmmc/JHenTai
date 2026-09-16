@@ -21,6 +21,7 @@ class _HomeTabEditPageState extends State<HomeTabEditPage> {
 
   late SearchConfig searchConfig;
   String name = '';
+  bool advancedExpanded = false;
 
   final ScrollController _bodyScrollController = ScrollController();
   final GlobalKey<EHSearchFilterPanelState> _panelKey = GlobalKey<EHSearchFilterPanelState>();
@@ -36,6 +37,7 @@ class _HomeTabEditPageState extends State<HomeTabEditPage> {
 
     searchConfig = tab?.searchConfig.copyWith() ?? SearchConfig();
     name = tab?.name ?? '';
+    advancedExpanded = tab?.advancedExpanded ?? false;
   }
 
   @override
@@ -62,7 +64,12 @@ class _HomeTabEditPageState extends State<HomeTabEditPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           children: [
             _buildNameField(),
-            EHSearchFilterPanel(key: _panelKey, searchConfig: searchConfig).marginOnly(top: 20),
+            EHSearchFilterPanel(
+              key: _panelKey,
+              searchConfig: searchConfig,
+              advancedExpanded: advancedExpanded,
+              onAdvancedExpandedChanged: (value) => advancedExpanded = value,
+            ).marginOnly(top: 20),
           ],
         ),
       ),
@@ -89,9 +96,9 @@ class _HomeTabEditPageState extends State<HomeTabEditPage> {
     }
 
     if (tab == null) {
-      await homeTabBarService.addTab(name.trim(), searchConfig);
+      await homeTabBarService.addTab(name.trim(), searchConfig, advancedExpanded: advancedExpanded);
     } else {
-      await homeTabBarService.updateTab(tab!, name: name.trim(), searchConfig: searchConfig);
+      await homeTabBarService.updateTab(tab!, name: name.trim(), searchConfig: searchConfig, advancedExpanded: advancedExpanded);
     }
 
     backRoute();

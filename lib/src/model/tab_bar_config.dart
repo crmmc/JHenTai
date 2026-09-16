@@ -11,6 +11,7 @@ class TabBarConfig {
   bool hidden;
   bool isDeleteAble;
   bool isEditable;
+  bool advancedExpanded;
 
   TabBarConfig({
     required this.id,
@@ -19,6 +20,7 @@ class TabBarConfig {
     this.hidden = false,
     this.isDeleteAble = true,
     this.isEditable = true,
+    this.advancedExpanded = false,
   });
 
   factory TabBarConfig.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class TabBarConfig {
       hidden: json['hidden'] ?? false,
       isDeleteAble: json['isDeleteAble'] ?? true,
       isEditable: json['isEditable'] ?? true,
+      advancedExpanded: json['advancedExpanded'] ?? false,
     );
   }
 
@@ -40,11 +43,12 @@ class TabBarConfig {
       'hidden': hidden,
       'isDeleteAble': isDeleteAble,
       'isEditable': isEditable,
+      'advancedExpanded': advancedExpanded,
     };
   }
 
   @override
   String toString() {
-    return 'TabBarConfig{id: $id, name: $name, searchConfig: $searchConfig, hidden: $hidden, isDeleteAble: $isDeleteAble, isEditable: $isEditable}';
+    return 'TabBarConfig{id: $id, name: $name, searchConfig: $searchConfig, hidden: $hidden, isDeleteAble: $isDeleteAble, isEditable: $isEditable, advancedExpanded: $advancedExpanded}';
   }
 }

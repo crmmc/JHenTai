@@ -29,8 +29,10 @@ import 'eh_wheel_speed_controller.dart';
 /// The panel is not scrollable by itself; hosts must provide a scrollable ancestor.
 class EHSearchFilterPanel extends StatefulWidget {
   final SearchConfig searchConfig;
+  final bool advancedExpanded;
+  final ValueChanged<bool>? onAdvancedExpandedChanged;
 
-  const EHSearchFilterPanel({Key? key, required this.searchConfig}) : super(key: key);
+  const EHSearchFilterPanel({Key? key, required this.searchConfig, this.advancedExpanded = false, this.onAdvancedExpandedChanged}) : super(key: key);
 
   @override
   EHSearchFilterPanelState createState() => EHSearchFilterPanelState();
@@ -57,26 +59,12 @@ class EHSearchFilterPanelState extends State<EHSearchFilterPanel> {
   FocusNode focusNode = FocusNode();
   bool isDoubleBackspace = false;
 
-  bool _advancedExpanded = false;
+  late bool _advancedExpanded;
 
   @override
   void initState() {
     super.initState();
-    // Expand the advanced section when the loaded config already has advanced fields set,
-    // so users editing an existing tab/filter see their previous choices instead of a closed panel.
-    _advancedExpanded = _hasAdvancedConfig(widget.searchConfig);
-  }
-
-  bool _hasAdvancedConfig(SearchConfig config) {
-    return config.language != null
-        || config.onlySearchExpungedGalleries
-        || config.onlyShowGalleriesWithTorrents
-        || config.pageAtLeast != null
-        || config.pageAtMost != null
-        || config.minimumRating > 1
-        || config.disableFilterForLanguage
-        || config.disableFilterForUploader
-        || config.disableFilterForTags;
+    _advancedExpanded = widget.advancedExpanded;
   }
 
   @override
@@ -311,9 +299,15 @@ class EHSearchFilterPanelState extends State<EHSearchFilterPanel> {
           title: Text('advanced'.tr, style: const TextStyle(fontSize: 15)),
           trailing: Switch(
             value: _advancedExpanded,
-            onChanged: (bool value) => setState(() => _advancedExpanded = value),
+            onChanged: (bool value) {
+              setState(() => _advancedExpanded = value);
+              widget.onAdvancedExpandedChanged?.call(value);
+            },
           ),
-          onTap: () => setState(() => _advancedExpanded = !_advancedExpanded),
+          onTap: () {
+            setState(() => _advancedExpanded = !_advancedExpanded);
+            widget.onAdvancedExpandedChanged?.call(_advancedExpanded);
+          },
         ),
         if (_advancedExpanded)
           Column(
