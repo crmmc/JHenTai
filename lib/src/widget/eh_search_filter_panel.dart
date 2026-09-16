@@ -68,7 +68,8 @@ class EHSearchFilterPanelState extends State<EHSearchFilterPanel> {
   }
 
   bool _hasAdvancedConfig(SearchConfig config) {
-    return config.onlySearchExpungedGalleries
+    return config.language != null
+        || config.onlySearchExpungedGalleries
         || config.onlyShowGalleriesWithTorrents
         || config.pageAtLeast != null
         || config.pageAtMost != null
